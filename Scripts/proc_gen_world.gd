@@ -24,7 +24,7 @@ var height : int = 200
 # Usate per identificare quali tile utilizzare per i diversi tipi di terreno.
 var source_id = 0
 var water_atlas = Vector2i(6, 14)
-var land_atlas = Vector2i(5, 0)
+var land_atlas = Vector2i(6, 1)
 
 # Dichiarazione e inizializzazione di variabili per identificare i layer del terreno
 # Definisce i layer per i diversi tipi di terreno nel TileMap.
@@ -87,7 +87,7 @@ func generate_world():
 						# Aggiunge le coordinate (x, y) all'array delle tile di scogliera
 						cliff_tiles_arr.append(Vector2i(x, y))
 			
-			tile_map.set_cell(water_layer, Vector2(x,y), source_id, water_atlas)
+			tile_map.set_cell(water_layer, Vector2(x,y), source_id, land_atlas)
 			
 			# Aggiunge il valore del noise all'array noise_val_arr
 			# Memorizza il valore del noise per scopi di debug o ulteriori elaborazioni.
