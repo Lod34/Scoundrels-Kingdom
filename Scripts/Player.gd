@@ -6,4 +6,7 @@ func _physics_process(delta):
 	move_and_slide()
 
 	if velocity.length() > 0.0:
-		get_node("Player").play_walk_animation()
+		get_node("Knight").play_walk_animation()
+	else:
+		get_node("Knight").play_walk_animation()
+		
