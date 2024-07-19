@@ -28,7 +28,7 @@ var land_atlas = Vector2i(6, 1)
 
 # Dichiarazione e inizializzazione di variabili per identificare i layer del terreno
 # Definisce i layer per i diversi tipi di terreno nel TileMap.
-var water_layer = 0
+var dirt_layer = 0
 var sand_layer = 1
 var grass_layer = 2
 var cliff_layer = 3
