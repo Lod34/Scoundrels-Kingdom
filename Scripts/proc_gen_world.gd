@@ -23,26 +23,26 @@ var height : int = 200
 # Dichiarazione e inizializzazione di variabili per identificare la sorgente e le posizioni delle tile nei tile atlas
 # Usate per identificare quali tile utilizzare per i diversi tipi di terreno.
 var source_id = 0
-var water_atlas = Vector2i(6, 14)
-var land_atlas = Vector2i(6, 1)
+var water_atlas = Vector2i(6, 13)
+var dirt_atlas = Vector2i(6, 0)
+var grass_atlas = Vector2i(1, 1)
 
 # Dichiarazione e inizializzazione di variabili per identificare i layer del terreno
 # Definisce i layer per i diversi tipi di terreno nel TileMap.
 var dirt_layer = 0
-var sand_layer = 1
-var grass_layer = 2
-var cliff_layer = 3
+var grass_layer = 1
+var water_layer = 2
 
 # Dichiarazione e inizializzazione di array per memorizzare le coordinate delle tile di sabbia, erba e scogliera
 # Permettono di tenere traccia delle coordinate delle tile per ciascun tipo di terreno.
-var sand_tiles_arr = []
-var terrain_sand_int = 1
+var dirt_tiles_arr = []
+var terrain_dirt_int = 1
 
 var grass_tiles_arr = []
 var terrain_grass_int = 2
 
-var cliff_tiles_arr = []
-var terrain_cliff_int = 3
+var water_tiles_arr = []
+var terrain_water_int = 3
 
 # Dichiarazione di un array per memorizzare i valori del noise
 # Memorizza i valori del noise generati per l'area di terreno.
@@ -71,23 +71,25 @@ func generate_world():
 			
 			# Verifica se il valore del noise è maggiore o uguale a -0.2
 			# Determina se la posizione attuale è sabbia.
-			if noise_val >= -0.2:
+			if noise_val >= -0.3:
 				# Aggiunge le coordinate (x, y) all'array delle tile di sabbia
-				sand_tiles_arr.append(Vector2i(x, y))
+				
+				dirt_tiles_arr.append(Vector2i(x, y))
 				
 				# Verifica se il valore del noise è maggiore di 0.0
 				# Determina se la posizione attuale è erba.
-				if noise_val > 0.0:
+				if noise_val >= 0.32:
 					# Aggiunge le coordinate (x, y) all'array delle tile di erba
 					grass_tiles_arr.append(Vector2i(x, y))
 					
 					# Verifica se il valore del noise è maggiore di 0.3
 					# Determina se la posizione attuale è una scogliera.
-					if noise_val > 0.3:
+					if noise_val >= 0.5:
 						# Aggiunge le coordinate (x, y) all'array delle tile di scogliera
-						cliff_tiles_arr.append(Vector2i(x, y))
+						water_tiles_arr.append(Vector2i(x, y))
+
 			
-			tile_map.set_cell(water_layer, Vector2(x,y), source_id, land_atlas)
+			tile_map.set_cell(dirt_layer, Vector2(x,y), source_id, dirt_atlas)
 			
 			# Aggiunge il valore del noise all'array noise_val_arr
 			# Memorizza il valore del noise per scopi di debug o ulteriori elaborazioni.
@@ -102,13 +104,13 @@ func generate_world():
 	
 	# Imposta le tile di sabbia nel TileMap usando la connessione delle tile
 	# Utilizza il sistema di connessione delle tile per posizionare le tile di sabbia.
-	tile_map.set_cells_terrain_connect(sand_layer, sand_tiles_arr, terrain_sand_int, 0)
+	tile_map.set_cells_terrain_connect(dirt_layer, dirt_tiles_arr, terrain_dirt_int, 0)
 	# Imposta le tile di erba nel TileMap usando la connessione delle tile
 	# Utilizza il sistema di connessione delle tile per posizionare le tile di erba.
-	tile_map.set_cells_terrain_connect(sand_layer, grass_tiles_arr, terrain_grass_int, 0)
+	tile_map.set_cells_terrain_connect(grass_layer, grass_tiles_arr, terrain_grass_int, 0)
 	# Imposta le tile di scogliera nel TileMap usando la connessione delle tile
 	# Utilizza il sistema di connessione delle tile per posizionare le tile di scogliera.
-	tile_map.set_cells_terrain_connect(cliff_layer, cliff_tiles_arr, terrain_cliff_int, 0)
+	tile_map.set_cells_terrain_connect(water_layer, water_tiles_arr, terrain_water_int, 0)
 
 # Funzione per gestire l'input dell'utente
 # Permette di zoomare avanti e indietro nella scena.
