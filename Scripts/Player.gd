@@ -45,4 +45,3 @@ func play_animation(dir,face):
 				$AnimationPlayer.play("run_right")
 			if face == "left":
 				$AnimationPlayer.play("run_left")
-
