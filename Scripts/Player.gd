@@ -25,19 +25,31 @@ func check_face():
 	if direction.x < 0:
 		face = "left"
 	return face
-
+	
 func play_animation(dir,face):
 	if player_state == "idle":
 		if face == "right":
 			$AnimationPlayer.play("idle_right")
+			
 		if face == "left":
 			$AnimationPlayer.play("idle_left")
+			
+		if Input.is_action_pressed("attack"):
+			$AnimationPlayer.play("AttackNoMovement")
 	
 	if player_state == "running":
 		if dir.x == 1:
-			$AnimationPlayer.play("run_right")
+			$AnimationPlayer.play("run")
+		
 		if dir.x == -1:
 			$AnimationPlayer.play("run_left")
+			
+		if Input.is_action_pressed("attack"):
+			if Input.is_action_just_released("attack") and Input.is_action_pressed("attack"):
+				$AnimationPlayer.play("AttackCombo2hit")
+			else:
+				$AnimationPlayer.play("Attack_1")
+			
 		
 		#play run animation in y direction
 		if dir.y != 0:
@@ -45,4 +57,3 @@ func play_animation(dir,face):
 				$AnimationPlayer.play("run_right")
 			if face == "left":
 				$AnimationPlayer.play("run_left")
-
