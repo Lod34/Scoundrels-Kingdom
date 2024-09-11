@@ -36,6 +36,7 @@ func play_animation(dir,face):
 			
 		if Input.is_action_pressed("attack"):
 			$AnimationPlayer.play("AttackNoMovement")
+			$AnimationPlayer.play("idle")
 	
 	if player_state == "running":
 		if dir.x == 1:
